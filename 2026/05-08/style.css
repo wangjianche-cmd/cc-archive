@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --red: #e74c3c;
+  --red-light: #fdf0ef;
+  --green: #2ecc71;
+  --green-light: #edfaf3;
+  --blue: #3498db;
+  --blue-light: #eaf4fd;
+  --bg: #0d111f;
+  --bg-gradient: linear-gradient(160deg, #0d111f 0%, #141b33 35%, #1a1f42 65%, #161b38 100%);
+  --surface: rgba(255,255,255,0.06);
+  --text: #e8eaef;
+  --text-dim: #8890a8;
+  --ring-bg: rgba(255,255,255,0.06);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  padding: 20px;
+  -webkit-app-region: no-drag;
+}
+
+.mode-tabs {
+  display: flex;
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 2px;
+}
+
+.mode-tab {
+  padding: 8px 18px;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-tab.active {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text);
+}
+
+.mode-tab.mode-red.active { background: var(--red); color: #fff; }
+.mode-tab.mode-green.active { background: var(--green); color: #fff; }
+.mode-tab.mode-blue.active { background: var(--blue); color: #fff; }
+
+.timer-ring {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+
+.timer-ring::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(52, 116, 219, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.timer-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: var(--ring-bg);
+  stroke-width: 6;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 552.92;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease, stroke 0.3s ease;
+}
+
+.ring-progress.mode-green { stroke: var(--green); }
+.ring-progress.mode-blue { stroke: var(--blue); }
+
+.timer-display {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.time {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.time.warning {
+  color: var(--red);
+}
+
+.status {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 400;
+}
+
+.btn-main {
+  width: 180px;
+  height: 48px;
+  border: none;
+  border-radius: 24px;
+  background: var(--red);
+  color: #fff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 20px rgba(231, 76, 60, 0.35);
+}
+
+.btn-main:hover { transform: scale(1.03); }
+.btn-main:active { transform: scale(0.97); }
+
+.btn-main.paused {
+  background: var(--surface);
+  box-shadow: none;
+  color: var(--text);
+}
+
+.btn-reset {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.btn-reset:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.sessions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 260px;
+}
+
+.session-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--surface);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.session-dot.filled {
+  background: var(--red);
+  transform: scale(1.15);
+}
+
+.session-dot.break {
+  background: var(--green);
+}
